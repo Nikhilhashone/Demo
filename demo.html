@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hashone</title>
+
+<!-- GSAP -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis"></script>
+
+<style>
+:root{
+  --bg:#ffffff;
+  --text:#111;
+}
+
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* CURSOR */
+.cursor{
+  position:fixed;
+  width:20px;height:20px;
+  border-radius:50%;
+  background:#000;
+  pointer-events:none;
+  mix-blend-mode:difference;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+}
+
+/* LINKS FIX */
+a{
+  color:inherit;
+  text-decoration:none;
+  font-weight:500;
+}
+a:hover{ opacity:.6; }
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 10%;
+}
+.hero h1{ font-size:90px; margin:0; }
+.hero h3{ opacity:.6; }
+
+/* SECTION */
+.section{ padding:120px 10%; }
+
+/* GRID */
+.grid, .people-grid{
+  display:flex;
+  gap:40px;
+}
+.col, .people-col{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+img{
+  width:100%;
+  border-radius:20px;
+}
+
+/* FIX LOGO SIZE */
+.logo{
+  width:80px !important;
+  max-width:80px;
+}
+
+.footer-logo{
+  width:90px !important;
+  max-width:90px;
+}
+
+/* SCROLLER */
+.scroller{
+  overflow:hidden;
+  cursor:grab;
+}
+.scroller__inner{
+  display:flex;
+  gap:20px;
+}
+.scroller img{ width:60px; }
+
+/* CTA */
+.cta{
+  display:inline-block;
+  margin-top:30px;
+  padding:12px 24px;
+  border:1px solid #000;
+  border-radius:30px;
+  transition:0.3s;
+}
+.cta:hover{
+  background:#000;
+  color:#fff;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:120px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="assets/img/web_hero_logo.svg" class="logo">
+  <h1 class="heading">Hashone</h1>
+  <h3 class="subheading">We Don’t Build Apps We Build Digital Obsessions</h3>
+</section>
+
+<!-- VIDEO -->
+<section class="section">
+  <img src="assets/img/custom-animation/web_poster_1.png">
+</section>
+
+<!-- PRODUCTS -->
+<section class="section">
+  <h2>Apps that don’t just sit there!</h2>
+  <p>Through our products, we aim to satisfy every technology demand of the future.</p>
+
+  <div class="grid">
+    <div class="col col1">
+      <img src="assets/img/products/app_image_caro.png">
+      <img src="assets/img/products/app_image_panocut.png">
+      <img src="assets/img/products/app_image_vintify.png">
+    </div>
+    <div class="col col2">
+      <img src="assets/img/products/app_image_dun.png">
+      <img src="assets/img/products/app_image_caro.png">
+      <img src="assets/img/products/app_image_panocut.png">
+    </div>
+    <div class="col col3">
+      <img src="assets/img/products/app_image_vintify.png">
+      <img src="assets/img/products/app_image_dun.png">
+      <img src="assets/img/products/app_image_caro.png">
+    </div>
+  </div>
+</section>
+
+<!-- PEOPLE -->
+<section class="section">
+  <h2>More than code. It’s a vibe.</h2>
+  <p>Our people make us what we are</p>
+
+  <div class="people-grid">
+    <div class="people-col colA">
+      <img src="assets/img/custom-animation/web_section/web_1.png">
+      <img src="assets/img/custom-animation/web_section/web_2.png">
+      <img src="assets/img/custom-animation/web_section/web_3.png">
+    </div>
+    <div class="people-col colB">
+      <img src="assets/img/custom-animation/web_section/web_4.png">
+      <img src="assets/img/custom-animation/web_section/web_5.png">
+      <img src="assets/img/custom-animation/web_section/web_6.png">
+    </div>
+    <div class="people-col colC">
+      <img src="assets/img/custom-animation/web_section/web_7.png">
+      <img src="assets/img/custom-animation/web_section/web_8.png">
+      <img src="assets/img/custom-animation/web_section/web_9.png">
+    </div>
+  </div>
+</section>
+
+<!-- ICONS -->
+<section class="section">
+  <h2>And many more</h2>
+  <div class="scroller">
+    <div class="scroller__inner">
+      <img src="assets/img/app_icons/1.png">
+      <img src="assets/img/app_icons/2.png">
+      <img src="assets/img/app_icons/3.png">
+      <img src="assets/img/app_icons/4.png">
+      <img src="assets/img/app_icons/5.png">
+      <img src="assets/img/app_icons/6.png">
+      <img src="assets/img/app_icons/7.png">
+      <img src="assets/img/app_icons/8.png">
+      <img src="assets/img/app_icons/9.png">
+      <img src="assets/img/app_icons/10.png">
+      <img src="assets/img/app_icons/11.png">
+      <img src="assets/img/app_icons/12.png">
+      <img src="assets/img/app_icons/13.png">
+      <img src="assets/img/app_icons/14.png">
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <h2>Join our team</h2>
+
+  <div class="scroller">
+    <div class="scroller__inner">
+      <img src="assets/img/users/1.png">
+      <img src="assets/img/users/2.png">
+      <img src="assets/img/users/3.png">
+      <img src="assets/img/users/4.png">
+      <img src="assets/img/users/5.png">
+      <img src="assets/img/users/6.png">
+      <img src="assets/img/users/7.png">
+      <img src="assets/img/users/8.png">
+      <img src="assets/img/users/9.png">
+      <img src="assets/img/users/10.png">
+      <img src="assets/img/users/11.png">
+      <img src="assets/img/users/12.png">
+      <img src="assets/img/users/13.png">
+      <img src="assets/img/users/14.png">
+    </div>
+  </div>
+
+  <a href="http://hashone.admozo.com/jobs" target="_blank" class="cta">
+    See Jobs & Apply →
+  </a>
+</section>
+
+<!-- FOOTER -->
+<section class="footer">
+  <img src="assets/img/web_footer_logo.png" class="footer-logo">
+</section>
+
+<script>
+
+// LENIS
+const lenis = new Lenis({ lerp:0.08 });
+function raf(time){ lenis.raf(time); requestAnimationFrame(raf);}
+requestAnimationFrame(raf);
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+// HERO
+gsap.from(".heading",{y:100,opacity:0,duration:1});
+gsap.from(".subheading",{y:50,opacity:0,delay:.3});
+
+// STAGGER REVEAL
+gsap.utils.toArray(".col img, .people-col img").forEach((el,i)=>{
+  gsap.from(el,{
+    y:80,
+    opacity:0,
+    delay:i*0.05,
+    scrollTrigger:{trigger:el,start:"top 90%"}
+  });
+});
+
+// PARALLAX DEPTH
+gsap.to(".col1",{y:-150,scale:1.05,scrollTrigger:{trigger:".grid",scrub:true}});
+gsap.to(".col2",{y:-50,scale:0.98,scrollTrigger:{trigger:".grid",scrub:true}});
+gsap.to(".col3",{y:-200,scale:1.08,scrollTrigger:{trigger:".grid",scrub:true}});
+
+// PEOPLE PARALLAX
+gsap.to(".colA",{y:-200,scrollTrigger:{trigger:".people-grid",scrub:true}});
+gsap.to(".colB",{y:-80,scrollTrigger:{trigger:".people-grid",scrub:true}});
+gsap.to(".colC",{y:-250,scrollTrigger:{trigger:".people-grid",scrub:true}});
+
+// SCROLLER (AUTO + DRAG FEEL)
+document.querySelectorAll(".scroller").forEach(scroller=>{
+  const inner = scroller.querySelector(".scroller__inner");
+  const items=[...inner.children];
+
+  items.forEach(item=> inner.appendChild(item.cloneNode(true)));
+
+  let x=0;
+  gsap.to(inner,{
+    x:"-50%",
+    duration:20,
+    ease:"none",
+    repeat:-1
+  });
+
+  // DRAG EFFECT
+  let isDown=false,startX;
+  scroller.addEventListener("mousedown",e=>{
+    isDown=true;
+    startX=e.pageX;
+  });
+  scroller.addEventListener("mouseup",()=> isDown=false);
+  scroller.addEventListener("mouseleave",()=> isDown=false);
+
+  scroller.addEventListener("mousemove",e=>{
+    if(!isDown) return;
+    const walk=(e.pageX-startX)*2;
+    gsap.to(inner,{x:`+=${walk}`,duration:0.3});
+  });
+});
+
+// CURSOR
+const cursor=document.querySelector(".cursor");
+window.addEventListener("mousemove",e=>{
+  gsap.to(cursor,{x:e.clientX,y:e.clientY});
+});
+
+// CURSOR SCALE ON HOVER
+document.querySelectorAll("img, a").forEach(el=>{
+  el.addEventListener("mouseenter",()=> gsap.to(cursor,{scale:2}));
+  el.addEventListener("mouseleave",()=> gsap.to(cursor,{scale:1}));
+});
+
+// MAGNETIC
+document.querySelectorAll("img, h1, h2").forEach(el=>{
+  el.addEventListener("mousemove",e=>{
+    const rect=el.getBoundingClientRect();
+    const x=e.clientX-rect.left-rect.width/2;
+    const y=e.clientY-rect.top-rect.height/2;
+    gsap.to(el,{x:x*0.2,y:y*0.2});
+  });
+  el.addEventListener("mouseleave",()=> gsap.to(el,{x:0,y:0}));
+});
+
+</script>
+
+</body>
+</html>
