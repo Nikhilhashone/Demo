@@ -3,330 +3,405 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hashone</title>
-
-<!-- GSAP -->
+<title>Hashone - Premium Experience</title>
 <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
 <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/@studio-freight/lenis"></script>
-
 <style>
-:root{
-  --bg:#ffffff;
-  --text:#111;
+:root {
+  --bg: #0a0a0a;
+  --text: #f4f4f4;
+  --accent: #ff4a00;
+}
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none; /* Hide default cursor */
 }
 
-body{
-  margin:0;
-  font-family:Inter, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
+/* LOADER */
+.loader {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  font-size: 2vw;
+  font-weight: 500;
 }
 
-/* CURSOR */
-.cursor{
-  position:fixed;
-  width:20px;height:20px;
-  border-radius:50%;
-  background:#000;
-  pointer-events:none;
-  mix-blend-mode:difference;
-  z-index:9999;
-  transform:translate(-50%,-50%);
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 15px; height: 15px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+  will-change: transform;
+}
+.cursor.active {
+  transform: scale(4);
+  background: rgba(255, 255, 255, 1);
+  mix-blend-mode: normal;
+}
+.cursor.drag {
+  transform: scale(5);
+  background: var(--text);
+}
+.cursor.drag::after {
+  content: 'DRAG';
 }
 
-/* LINKS FIX */
-a{
-  color:inherit;
-  text-decoration:none;
-  font-weight:500;
+/* TYPOGRAPHY & MASKS */
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.03em; margin: 0; }
+.line-mask {
+  overflow: hidden;
+  display: block;
 }
-a:hover{ opacity:.6; }
 
 /* HERO */
-.hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:0 10%;
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+  position: relative;
 }
-.hero h1{ font-size:90px; margin:0; }
-.hero h3{ opacity:.6; }
+.hero h1 { font-size: 8vw; line-height: 1; margin-bottom: 20px; }
+.hero h3 { font-size: 2vw; font-weight: 400; opacity: 0.8; }
+.logo { width: 80px; position: absolute; top: 40px; left: 10%; }
 
-/* SECTION */
-.section{ padding:120px 10%; }
+/* SECTIONS & GRIDS */
+.section { padding: 10vw 10%; }
+.section h2 { font-size: 4vw; margin-bottom: 10px; }
+.section p { font-size: 1.2vw; opacity: 0.7; margin-bottom: 60px; }
 
-/* GRID */
-.grid, .people-grid{
-  display:flex;
-  gap:40px;
-}
-.col, .people-col{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-img{
-  width:100%;
-  border-radius:20px;
-}
+.grid, .people-grid { display: flex; gap: 3vw; }
+.col, .people-col { flex: 1; display: flex; flex-direction: column; gap: 3vw; }
 
-/* FIX LOGO SIZE */
-.logo{
-  width:80px !important;
-  max-width:80px;
+/* IMAGE REVEAL WRAPPER */
+.img-wrap {
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
 }
-
-.footer-logo{
-  width:90px !important;
-  max-width:90px;
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.3); /* Pre-scale for parallax zoom-out */
+  will-change: transform;
 }
 
 /* SCROLLER */
-.scroller{
-  overflow:hidden;
-  cursor:grab;
+.scroller {
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
 }
-.scroller__inner{
-  display:flex;
-  gap:20px;
+.scroller__inner {
+  display: flex;
+  gap: 3vw;
+  width: max-content;
+  will-change: transform;
 }
-.scroller img{ width:60px; }
+.scroller img { width: 80px; border-radius: 20px; }
 
-/* CTA */
-.cta{
-  display:inline-block;
-  margin-top:30px;
-  padding:12px 24px;
-  border:1px solid #000;
-  border-radius:30px;
-  transition:0.3s;
+/* MAGNETIC CTA */
+.cta-wrap {
+  display: inline-flex;
+  margin-top: 50px;
 }
-.cta:hover{
-  background:#000;
-  color:#fff;
+.cta {
+  padding: 20px 40px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--text);
+  border-radius: 50px;
+  font-size: 1.2vw;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s, border 0.3s;
+  will-change: transform;
 }
+.cta:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+.cta span { display: inline-block; pointer-events: none; }
 
 /* FOOTER */
-.footer{
-  text-align:center;
-  padding:120px 0;
-}
+.footer { text-align: center; padding: 10vw 0; }
+.footer-logo { width: 120px; }
 </style>
 </head>
-
 <body>
+
+<div class="loader"><span class="counter">0</span>%</div>
 
 <div class="cursor"></div>
 
-<!-- HERO -->
 <section class="hero">
-  <img src="assets/img/web_hero_logo.svg" class="logo">
-  <h1 class="heading">Hashone</h1>
-  <h3 class="subheading">We Don’t Build Apps We Build Digital Obsessions</h3>
+  <img src="assets/img/web_hero_logo.svg" class="logo img-hover">
+  <h1 class="heading">
+    <span class="line-mask"><span class="line">Hashone</span></span>
+  </h1>
+  <h3 class="subheading">
+    <span class="line-mask"><span class="line">We Don’t Build Apps.</span></span>
+    <span class="line-mask"><span class="line">We Build Digital Obsessions.</span></span>
+  </h3>
 </section>
 
-<!-- VIDEO -->
 <section class="section">
-  <img src="assets/img/custom-animation/web_poster_1.png">
+  <div class="img-wrap" data-speed="0.9">
+    <img src="assets/img/custom-animation/web_poster_1.png">
+  </div>
 </section>
 
-<!-- PRODUCTS -->
 <section class="section">
-  <h2>Apps that don’t just sit there!</h2>
-  <p>Through our products, we aim to satisfy every technology demand of the future.</p>
-
+  <h2 class="text-reveal">
+    <span class="line-mask"><span class="line">Apps that don’t</span></span>
+    <span class="line-mask"><span class="line">just sit there!</span></span>
+  </h2>
+  <p class="fade-up">Through our products, we aim to satisfy every technology demand of the future.</p>
+  
   <div class="grid">
     <div class="col col1">
-      <img src="assets/img/products/app_image_caro.png">
-      <img src="assets/img/products/app_image_panocut.png">
-      <img src="assets/img/products/app_image_vintify.png">
+      <div class="img-wrap"><img src="assets/img/products/app_image_caro.png" class="img-hover"></div>
+      <div class="img-wrap"><img src="assets/img/products/app_image_panocut.png" class="img-hover"></div>
+      <div class="img-wrap"><img src="assets/img/products/app_image_vintify.png" class="img-hover"></div>
     </div>
     <div class="col col2">
-      <img src="assets/img/products/app_image_dun.png">
-      <img src="assets/img/products/app_image_caro.png">
-      <img src="assets/img/products/app_image_panocut.png">
+      <div class="img-wrap"><img src="assets/img/products/app_image_dun.png" class="img-hover"></div>
+      <div class="img-wrap"><img src="assets/img/products/app_image_caro.png" class="img-hover"></div>
+      <div class="img-wrap"><img src="assets/img/products/app_image_panocut.png" class="img-hover"></div>
     </div>
     <div class="col col3">
-      <img src="assets/img/products/app_image_vintify.png">
-      <img src="assets/img/products/app_image_dun.png">
-      <img src="assets/img/products/app_image_caro.png">
+      <div class="img-wrap"><img src="assets/img/products/app_image_vintify.png" class="img-hover"></div>
+      <div class="img-wrap"><img src="assets/img/products/app_image_dun.png" class="img-hover"></div>
+      <div class="img-wrap"><img src="assets/img/products/app_image_caro.png" class="img-hover"></div>
     </div>
   </div>
 </section>
 
-<!-- PEOPLE -->
 <section class="section">
-  <h2>More than code. It’s a vibe.</h2>
-  <p>Our people make us what we are</p>
-
+  <h2 class="text-reveal">
+    <span class="line-mask"><span class="line">More than code.</span></span>
+    <span class="line-mask"><span class="line">It’s a vibe.</span></span>
+  </h2>
+  <p class="fade-up">Our people make us what we are</p>
+  
   <div class="people-grid">
     <div class="people-col colA">
-      <img src="assets/img/custom-animation/web_section/web_1.png">
-      <img src="assets/img/custom-animation/web_section/web_2.png">
-      <img src="assets/img/custom-animation/web_section/web_3.png">
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_1.png"></div>
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_2.png"></div>
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_3.png"></div>
     </div>
     <div class="people-col colB">
-      <img src="assets/img/custom-animation/web_section/web_4.png">
-      <img src="assets/img/custom-animation/web_section/web_5.png">
-      <img src="assets/img/custom-animation/web_section/web_6.png">
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_4.png"></div>
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_5.png"></div>
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_6.png"></div>
     </div>
     <div class="people-col colC">
-      <img src="assets/img/custom-animation/web_section/web_7.png">
-      <img src="assets/img/custom-animation/web_section/web_8.png">
-      <img src="assets/img/custom-animation/web_section/web_9.png">
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_7.png"></div>
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_8.png"></div>
+      <div class="img-wrap"><img src="assets/img/custom-animation/web_section/web_9.png"></div>
     </div>
   </div>
 </section>
 
-<!-- ICONS -->
 <section class="section">
-  <h2>And many more</h2>
-  <div class="scroller">
+  <h2 class="fade-up">And many more</h2>
+  <div class="scroller" id="icon-scroller">
     <div class="scroller__inner">
-      <img src="assets/img/app_icons/1.png">
-      <img src="assets/img/app_icons/2.png">
-      <img src="assets/img/app_icons/3.png">
-      <img src="assets/img/app_icons/4.png">
-      <img src="assets/img/app_icons/5.png">
-      <img src="assets/img/app_icons/6.png">
-      <img src="assets/img/app_icons/7.png">
-      <img src="assets/img/app_icons/8.png">
-      <img src="assets/img/app_icons/9.png">
-      <img src="assets/img/app_icons/10.png">
-      <img src="assets/img/app_icons/11.png">
-      <img src="assets/img/app_icons/12.png">
-      <img src="assets/img/app_icons/13.png">
-      <img src="assets/img/app_icons/14.png">
+      <img src="assets/img/app_icons/1.png"><img src="assets/img/app_icons/2.png">
+      <img src="assets/img/app_icons/3.png"><img src="assets/img/app_icons/4.png">
+      <img src="assets/img/app_icons/5.png"><img src="assets/img/app_icons/6.png">
+      <img src="assets/img/app_icons/7.png"><img src="assets/img/app_icons/8.png">
+      <img src="assets/img/app_icons/9.png"><img src="assets/img/app_icons/10.png">
+      <img src="assets/img/app_icons/11.png"><img src="assets/img/app_icons/12.png">
+      <img src="assets/img/app_icons/13.png"><img src="assets/img/app_icons/14.png">
     </div>
   </div>
 </section>
 
-<!-- TEAM -->
 <section class="section">
-  <h2>Join our team</h2>
-
-  <div class="scroller">
+  <h2 class="fade-up">Join our team</h2>
+  <div class="scroller" id="team-scroller">
     <div class="scroller__inner">
-      <img src="assets/img/users/1.png">
-      <img src="assets/img/users/2.png">
-      <img src="assets/img/users/3.png">
-      <img src="assets/img/users/4.png">
-      <img src="assets/img/users/5.png">
-      <img src="assets/img/users/6.png">
-      <img src="assets/img/users/7.png">
-      <img src="assets/img/users/8.png">
-      <img src="assets/img/users/9.png">
-      <img src="assets/img/users/10.png">
-      <img src="assets/img/users/11.png">
-      <img src="assets/img/users/12.png">
-      <img src="assets/img/users/13.png">
-      <img src="assets/img/users/14.png">
+      <img src="assets/img/users/1.png"><img src="assets/img/users/2.png">
+      <img src="assets/img/users/3.png"><img src="assets/img/users/4.png">
+      <img src="assets/img/users/5.png"><img src="assets/img/users/6.png">
+      <img src="assets/img/users/7.png"><img src="assets/img/users/8.png">
+      <img src="assets/img/users/9.png"><img src="assets/img/users/10.png">
+      <img src="assets/img/users/11.png"><img src="assets/img/users/12.png">
+      <img src="assets/img/users/13.png"><img src="assets/img/users/14.png">
     </div>
   </div>
-
-  <a href="http://hashone.admozo.com/jobs" target="_blank" class="cta">
-    See Jobs & Apply →
-  </a>
+  
+  <div class="cta-wrap magnetic-wrap">
+    <a href="http://hashone.admozo.com/jobs" target="_blank" class="cta magnetic-btn">
+      <span>See Jobs & Apply →</span>
+    </a>
+  </div>
 </section>
 
-<!-- FOOTER -->
 <section class="footer">
-  <img src="assets/img/web_footer_logo.png" class="footer-logo">
+  <img src="assets/img/web_footer_logo.png" class="footer-logo img-hover">
 </section>
 
 <script>
-
-// LENIS
-const lenis = new Lenis({ lerp:0.08 });
-function raf(time){ lenis.raf(time); requestAnimationFrame(raf);}
+// 1. LENIS SMOOTH SCROLL
+const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 
-// GSAP
+// Integrate GSAP with Lenis
 gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
 
-// HERO
-gsap.from(".heading",{y:100,opacity:0,duration:1});
-gsap.from(".subheading",{y:50,opacity:0,delay:.3});
+// 2. HIGH-PERFORMANCE CURSOR
+const cursor = document.querySelector('.cursor');
+let xTo = gsap.quickTo(cursor, "x", {duration: 0.15, ease: "power3"}),
+    yTo = gsap.quickTo(cursor, "y", {duration: 0.15, ease: "power3"});
 
-// STAGGER REVEAL
-gsap.utils.toArray(".col img, .people-col img").forEach((el,i)=>{
-  gsap.from(el,{
-    y:80,
-    opacity:0,
-    delay:i*0.05,
-    scrollTrigger:{trigger:el,start:"top 90%"}
-  });
+window.addEventListener("mousemove", e => {
+  xTo(e.clientX - cursor.clientWidth / 2);
+  yTo(e.clientY - cursor.clientHeight / 2);
 });
 
-// PARALLAX DEPTH
-gsap.to(".col1",{y:-150,scale:1.05,scrollTrigger:{trigger:".grid",scrub:true}});
-gsap.to(".col2",{y:-50,scale:0.98,scrollTrigger:{trigger:".grid",scrub:true}});
-gsap.to(".col3",{y:-200,scale:1.08,scrollTrigger:{trigger:".grid",scrub:true}});
+// Cursor Interactions
+document.querySelectorAll('.img-hover, a').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+document.querySelectorAll('.scroller').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('drag'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('drag'));
+});
 
-// PEOPLE PARALLAX
-gsap.to(".colA",{y:-200,scrollTrigger:{trigger:".people-grid",scrub:true}});
-gsap.to(".colB",{y:-80,scrollTrigger:{trigger:".people-grid",scrub:true}});
-gsap.to(".colC",{y:-250,scrollTrigger:{trigger:".people-grid",scrub:true}});
+// 3. PRELOADER & HERO SEQUENCE
+let loaderObj = { value: 0 };
+let tlLoader = gsap.timeline();
 
-// SCROLLER (AUTO + DRAG FEEL)
-document.querySelectorAll(".scroller").forEach(scroller=>{
+tlLoader.to(loaderObj, {
+  value: 100,
+  duration: 1.5,
+  ease: "power2.inOut",
+  onUpdate: () => document.querySelector(".counter").innerText = Math.round(loaderObj.value)
+})
+.to(".loader", { yPercent: -100, duration: 1, ease: "expo.inOut" })
+.set(".hero .line", { yPercent: 100 })
+.to(".hero .line", {
+  yPercent: 0,
+  duration: 1.2,
+  stagger: 0.1,
+  ease: "power4.out"
+}, "-=0.3")
+.from(".logo", { scale: 0.5, opacity: 0, duration: 1, ease: "back.out(1.7)" }, "-=1");
+
+// 4. MASKED TEXT REVEALS ON SCROLL
+gsap.utils.toArray(".text-reveal, .fade-up").forEach(el => {
+  let lines = el.querySelectorAll('.line');
+  if(lines.length > 0) {
+    gsap.fromTo(lines, 
+      { yPercent: 100 }, 
+      { yPercent: 0, duration: 1.2, stagger: 0.1, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 85%" } }
+    );
+  } else {
+    gsap.fromTo(el, 
+      { opacity: 0, y: 30 }, 
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }
+    );
+  }
+});
+
+// 5. PREMIUM IMAGE REVEALS (CLIP-PATH & SCALE)
+gsap.utils.toArray(".img-wrap").forEach(wrap => {
+  let img = wrap.querySelector("img");
+  let tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: "top 85%" } });
+  
+  tl.fromTo(wrap, 
+    { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }, 
+    { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1.5, ease: "expo.out" }
+  )
+  .fromTo(img, 
+    { scale: 1.4 }, 
+    { scale: 1, duration: 1.5, ease: "expo.out" }, 
+    "<"
+  );
+});
+
+// 6. SMOOTH PARALLAX COLUMNS
+gsap.to(".col1", { yPercent: -20, ease: "none", scrollTrigger: { trigger: ".grid", scrub: true }});
+gsap.to(".col2", { yPercent: 10, ease: "none", scrollTrigger: { trigger: ".grid", scrub: true }});
+gsap.to(".col3", { yPercent: -30, ease: "none", scrollTrigger: { trigger: ".grid", scrub: true }});
+
+gsap.to(".colA", { yPercent: -25, ease: "none", scrollTrigger: { trigger: ".people-grid", scrub: true }});
+gsap.to(".colB", { yPercent: 5, ease: "none", scrollTrigger: { trigger: ".people-grid", scrub: true }});
+gsap.to(".colC", { yPercent: -40, ease: "none", scrollTrigger: { trigger: ".people-grid", scrub: true }});
+
+// 7. INFINITE MARQUEE WITH DRAG & VELOCITY
+document.querySelectorAll(".scroller").forEach((scroller, index) => {
   const inner = scroller.querySelector(".scroller__inner");
-  const items=[...inner.children];
-
-  items.forEach(item=> inner.appendChild(item.cloneNode(true)));
-
-  let x=0;
-  gsap.to(inner,{
-    x:"-50%",
-    duration:20,
-    ease:"none",
-    repeat:-1
-  });
-
-  // DRAG EFFECT
-  let isDown=false,startX;
-  scroller.addEventListener("mousedown",e=>{
-    isDown=true;
-    startX=e.pageX;
-  });
-  scroller.addEventListener("mouseup",()=> isDown=false);
-  scroller.addEventListener("mouseleave",()=> isDown=false);
-
-  scroller.addEventListener("mousemove",e=>{
-    if(!isDown) return;
-    const walk=(e.pageX-startX)*2;
-    gsap.to(inner,{x:`+=${walk}`,duration:0.3});
+  // Clone items for infinite effect
+  const items = [...inner.children];
+  items.forEach(item => inner.appendChild(item.cloneNode(true)));
+  items.forEach(item => inner.appendChild(item.cloneNode(true)));
+  
+  let direction = index % 2 === 0 ? -1 : 1; // Alternate directions
+  
+  gsap.to(inner, {
+    xPercent: -33.33 * direction, // Move 1/3 since we cloned twice
+    duration: 15,
+    ease: "none",
+    repeat: -1,
+    modifiers: {
+      xPercent: gsap.utils.wrap(-33.33, 0)
+    }
   });
 });
 
-// CURSOR
-const cursor=document.querySelector(".cursor");
-window.addEventListener("mousemove",e=>{
-  gsap.to(cursor,{x:e.clientX,y:e.clientY});
+// 8. TRUE MAGNETIC BUTTON (Awwwards Style)
+const magneticWrap = document.querySelector('.magnetic-wrap');
+const magneticBtn = document.querySelector('.magnetic-btn');
+const magneticText = magneticBtn.querySelector('span');
+
+magneticWrap.addEventListener('mousemove', (e) => {
+  const rect = magneticWrap.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  
+  // Move button shell
+  gsap.to(magneticBtn, { x: x * 0.4, y: y * 0.4, duration: 0.6, ease: "power3.out" });
+  // Parallax the text inside slightly more
+  gsap.to(magneticText, { x: x * 0.2, y: y * 0.2, duration: 0.6, ease: "power3.out" });
 });
 
-// CURSOR SCALE ON HOVER
-document.querySelectorAll("img, a").forEach(el=>{
-  el.addEventListener("mouseenter",()=> gsap.to(cursor,{scale:2}));
-  el.addEventListener("mouseleave",()=> gsap.to(cursor,{scale:1}));
+magneticWrap.addEventListener('mouseleave', () => {
+  gsap.to(magneticBtn, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
+  gsap.to(magneticText, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
 });
-
-// MAGNETIC
-document.querySelectorAll("img, h1, h2").forEach(el=>{
-  el.addEventListener("mousemove",e=>{
-    const rect=el.getBoundingClientRect();
-    const x=e.clientX-rect.left-rect.width/2;
-    const y=e.clientY-rect.top-rect.height/2;
-    gsap.to(el,{x:x*0.2,y:y*0.2});
-  });
-  el.addEventListener("mouseleave",()=> gsap.to(el,{x:0,y:0}));
-});
-
 </script>
-
 </body>
 </html>
